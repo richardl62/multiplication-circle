@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Canvas</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas class="myCanvas">
+        <p>Sorry,cannot render page. Canvas is not supported.</p>
+    </canvas>
+    <p id="demo"></p>
+    <script>
+    var canvas = document.querySelector('.myCanvas');
+	var width = canvas.width = window.innerWidth;
+	var height = canvas.height = window.innerHeight;
+
+	var center_h = width / 2;
+	var center_w = height / 2;
+	var margin = 0.1;
+	var radius = Math.min(width, height) / (2 + margin);
+
+
+    var ctx = canvas.getContext('2d');
+	//ctx.fillStyle = 'rgb(0, 0, 0)';
+	//ctx.fillRect(0, 0, width, height);
+
+	function degToRad(degrees) {
+	    return degrees * Math.PI / 180;
+	};
+
+	function circlePos(frac)
+	{
+	    var radians = frac * 2 * Math.PI;
+        // (0,0) is the top left corner
+	    return [
+            center_h + radius * Math.sin(radians),
+            center_w - radius * Math.cos(radians),
+	    ];
+	};
+
+	function drawArc(frac1, frac2)
+	{
+	    var h, w;
+	    ctx.beginPath();
+
+	    [h, w] = circlePos(frac1);
+	    ctx.moveTo(h, w);
+
+	    [h, w] = circlePos(frac2);
+	    ctx.lineTo(h, w);
+	    ctx.stroke();
+	};
+
+ 	ctx.beginPath();
+	ctx.arc(center_h, center_w, radius, degToRad(0), degToRad(360));
+	ctx.stroke();
+
+	text = "Hello";
+	const n_points = 1000;
+    const mult_factor = 51
+	var i;
+	for (i = 0; i < n_points; i++) {
+	    drawArc(i / n_points, i * mult_factor / n_points);
+	    text += i;
+	}
+	document.getElementById("demo").innerHTML = text;
+    </script>
+</body>
+
+
+</html>
