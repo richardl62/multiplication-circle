@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Canvas</title>
+    <title>Multiplication cirles</title>
     <style>
     <meta charset="utf-8">
     <title>Canvas</title>
@@ -14,20 +14,20 @@
         }
 
         .toolbar {
-            width: 150px;
-            height: 75px;
+            width: 250px;
+            height: 140px;
             background: #ccc;
             padding: 5px;
         }
 
         input[type="color"], button {
-            width: 90%;
+            width: 25%;
             margin: 0 auto;
             display: block;
         }
 
-        input[type="range"] {
-            width: 70%;
+        input[type="number"] {
+            width: 20%;
         }
 
         span {
@@ -40,8 +40,9 @@
 
 <body>
     <div class="toolbar">
-        <input type="color" aria-label="select pen color">
-        <input type="range" min="2" max="50" value="30" aria-label="select pen size"><span class="output">30</span>
+        Line colour: <input type="color" value="#ff8080"> <br>
+        Multiplication value: <input type="number" id="multiplication-value" min="1" max="9999" value="2"> <br>
+        Number of points: <input type="number" id="num-points" min="1" max="9999" value="200"> <br>
         <button>Draw it</button>
     </div>
 
@@ -60,6 +61,8 @@
 	var radius = Math.min(width, height) / (2 + margin);
 
 	var colorPicker = document.querySelector('input[type="color"]');
+	var multValuePicker = document.getElementById("multiplication-value")
+	var numPointPicker = document.getElementById("num-points")
 	var clearBtn = document.querySelector('button');
 	var ctx = canvas.getContext('2d');
 
@@ -90,19 +93,29 @@
 	ctx.arc(center_h, center_w, radius, 0, Math.PI*2);
 	ctx.stroke();
 
-
-	clearBtn.onclick = function () {
+	function drawIt() {
 	    ctx.fillStyle = 'white';
 	    ctx.fillRect(0, 0, width, height);
 
-	    const n_points = 1000;
-	    const mult_factor = 51
 	    ctx.strokeStyle = colorPicker.value;
+
+	    ctx.beginPath();
+	    ctx.arc(center_h, center_w, radius, 0, Math.PI * 2);
+	    ctx.stroke();
+
+	    const num_points = numPointPicker.value;
+	    const mult_value = multValuePicker.value;
 	    var i;
-	    for (i = 0; i < n_points; i++) {
-	        drawArc(i / n_points, i * mult_factor / n_points);
+	    for (i = 0; i < num_points; i++) {
+	        drawArc(i / num_points, i * mult_value / num_points);
 	    }
 	}
+
+	clearBtn.onclick = function () {
+	    drawIt();
+	}
+	drawIt();
+
     </script>
 </body>
 
