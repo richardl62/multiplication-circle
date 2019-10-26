@@ -4,13 +4,46 @@
     <meta charset="utf-8">
     <title>Canvas</title>
     <style>
+    <meta charset="utf-8">
+    <title>Canvas</title>
+    <style>
         body {
             margin: 0;
             overflow: hidden;
+            background: #ccc;
+        }
+
+        .toolbar {
+            width: 150px;
+            height: 75px;
+            background: #ccc;
+            padding: 5px;
+        }
+
+        input[type="color"], button {
+            width: 90%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        input[type="range"] {
+            width: 70%;
+        }
+
+        span {
+            position: relative;
+            bottom: 5px;
         }
     </style>
 </head>
+
+
 <body>
+    <div class="toolbar">
+        <input type="color" aria-label="select pen color">
+        <input type="range" min="2" max="50" value="30" aria-label="select pen size"><span class="output">30</span>
+        <button>Draw it</button>
+    </div>
 
     <canvas class="myCanvas">
         <p>Sorry,cannot render page. Canvas is not supported.</p>
@@ -26,14 +59,9 @@
 	var margin = 0.1;
 	var radius = Math.min(width, height) / (2 + margin);
 
-
-    var ctx = canvas.getContext('2d');
-	//ctx.fillStyle = 'rgb(0, 0, 0)';
-	//ctx.fillRect(0, 0, width, height);
-
-	function degToRad(degrees) {
-	    return degrees * Math.PI / 180;
-	};
+	var colorPicker = document.querySelector('input[type="color"]');
+	var clearBtn = document.querySelector('button');
+	var ctx = canvas.getContext('2d');
 
 	function circlePos(frac)
 	{
@@ -59,18 +87,22 @@
 	};
 
  	ctx.beginPath();
-	ctx.arc(center_h, center_w, radius, degToRad(0), degToRad(360));
+	ctx.arc(center_h, center_w, radius, 0, Math.PI*2);
 	ctx.stroke();
 
-	text = "Hello";
-	const n_points = 1000;
-    const mult_factor = 51
-	var i;
-	for (i = 0; i < n_points; i++) {
-	    drawArc(i / n_points, i * mult_factor / n_points);
-	    text += i;
+
+	clearBtn.onclick = function () {
+	    ctx.fillStyle = 'white';
+	    ctx.fillRect(0, 0, width, height);
+
+	    const n_points = 1000;
+	    const mult_factor = 51
+	    ctx.strokeStyle = colorPicker.value;
+	    var i;
+	    for (i = 0; i < n_points; i++) {
+	        drawArc(i / n_points, i * mult_factor / n_points);
+	    }
 	}
-	document.getElementById("demo").innerHTML = text;
     </script>
 </body>
 
