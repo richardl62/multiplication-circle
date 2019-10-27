@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Multiplication cirles</title>
+    <title>Multiplication patterns</title>
     <style>
     <meta charset="utf-8">
     <title>Canvas</title>
@@ -40,10 +40,9 @@
 
 <body>
     <div class="toolbar">
-        Line colour: <input type="color" value="#ff8080"> <br>
-        Multiplication value: <input type="number" id="multiplication-value" min="1" max="9999" value="2"> <br>
-        Number of points: <input type="number" id="num-points" min="1" max="9999" value="200"> <br>
-        <button>Draw it</button>
+        Line colour: <input type="color" onchange="drawIt()" value="#ff8080"> <br>
+        Multiplication value: <input type="number" onchange="drawIt()" id="multiplication-value" min="1" max="9999" value="2"> <br>
+        Number of points: <input type="number" onchange="drawIt()" id="num-points" min="1" max="9999" value="200"> <br>
     </div>
 
     <canvas class="myCanvas">
@@ -103,17 +102,14 @@
 	    ctx.arc(center_h, center_w, radius, 0, Math.PI * 2);
 	    ctx.stroke();
 
-	    const num_points = numPointPicker.value;
-	    const mult_value = multValuePicker.value;
+	    const num_points = parseInt(numPointPicker.value);
+	    const mult_value = parseInt(multValuePicker.value);
 	    var i;
 	    for (i = 0; i < num_points; i++) {
 	        drawArc(i / num_points, i * mult_value / num_points);
 	    }
 	}
 
-	clearBtn.onclick = function () {
-	    drawIt();
-	}
 	drawIt();
 
     </script>
