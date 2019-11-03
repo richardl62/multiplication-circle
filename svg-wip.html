@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <style type="text/css" media="screen">
+
+        body {
+            margin: 0
+        }
+
+        svg {
+            display: block;
+            position: absolute;
+            top: 2%;
+            left: 2%;
+            width: 96%;
+            height: 96%;
+        }
+    </style>
+
+    <svg id="svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1000 1000">
+        <circle id="outer_cicle"
+                style="fill:none;stroke-width:1;stroke:rgb(0,0,0)" />
+
+
+        Sorry, your browser does not support inline SVG.
+    </svg>
+
+    <script>
+        var my_svg = document.getElementById('svg');
+        //my_svg.setAttribute('width', 1000);
+        //my_svg.setAttribute('height', 600);
+
+        var width = 1000; //my_svg.clientWidth;
+        var height = 1000; //my_svg.clientHeight;
+        //console.log(width);
+        var outer_cicle = document.getElementById('outer_cicle');
+        var myrect =      document.getElementById('myrect');
+
+
+        function doRectClick() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+
+            myrect.style.fill = 'rgb(' + r + ', ' + g + ' , ' + b + ')';
+            outer_cicle.style.fill = 'rgb(' + r + ', ' + g + ' , ' + b + ')';
+        }
+
+        outer_cicle.setAttribute("r", height / 2);
+        outer_cicle.setAttribute("cx", width / 2);
+        outer_cicle.setAttribute("cy", height / 2);
+
+    </script>
+
+</body>
+
+</html>
